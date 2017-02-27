@@ -71,12 +71,14 @@ function initOpt(_this,callback,htmlPluginData) {
 //初始化对应正则表达式
 function initRegExp(_this,opt){
     let newOpt = Object.assign({},opt),
-        marks = newOpt.markNames;
-    newOpt.staticRegExps = [],
-        newOpt.markRegExps = [];
+        marks_JS = newOpt.markNames_JS ? newOpt.markNames_JS : [],
+        marks_CSS = newOpt.markNames_CSS ? newOpt.markNames_CSS : [];
 
-    for(let i = 0,len = marks.length;i < len;i++){
-        let currMark = marks[i],
+    newOpt.staticRegExps = [];
+    newOpt.markRegExps = [];
+
+    for(let i = 0,len = marks_JS.length;i < len;i++){
+        let currMark = marks_JS[i],
             currMarkRegExp = `${_this.markFormat[0]}${currMark}${_this.markFormat[2]}`;
         newOpt.markRegExps.push(currMarkRegExp);
 
@@ -84,7 +86,24 @@ function initRegExp(_this,opt){
         let staticPath = checkStaticListHaveMark(_this,currMark);
         if(staticPath) {
             let temporaryObj = {};
-            temporaryObj[currMarkRegExp] = setStaticRegExp(_this,staticPath);
+            temporaryObj[currMarkRegExp] = setStaticRegExp(_this,staticPath,'JavaScript');
+            newOpt.staticRegExps.push(temporaryObj);
+        }else{
+            break;
+        }
+
+    }
+
+    for(let i = 0,len = marks_CSS.length;i < len;i++){
+        let currMark = marks_CSS[i],
+            currMarkRegExp = `${_this.markFormat[0]}${currMark}${_this.markFormat[2]}`;
+        newOpt.markRegExps.push(currMarkRegExp);
+
+        //获取mark中对应的资源路径
+        let staticPath = checkStaticListHaveMark(_this,currMark);
+        if(staticPath) {
+            let temporaryObj = {};
+            temporaryObj[currMarkRegExp] = setStaticRegExp(_this,staticPath,'Style');
             newOpt.staticRegExps.push(temporaryObj);
         }else{
             break;
@@ -107,10 +126,14 @@ function checkStaticListHaveMark(_this,markName){
 }
 
 //组装资源正则
-function setStaticRegExp(_this,staticPath) {
+function setStaticRegExp(_this,staticPath,type) {
 
     let regexpStaticPath = transformPath(_this,staticPath);
-    return new RegExp('<script[^>].*src=[\'\"]?('+regexpStaticPath+')[\'\"]?.*>[.\n]*<\/script>');
+    if(type == 'JavaScript'){
+        return new RegExp('<script[^>].*src=[\'\"]?('+regexpStaticPath+')[\'\"]?.*>[.\n]*<\/script>');
+    }else if(type == 'Style'){
+        return new RegExp('<link[^>].*href=[\'\"]?('+regexpStaticPath+')[\'\"]?.*>');
+    }
 }
 
 
@@ -150,20 +173,29 @@ function replaceHtmlContent(_this,callback,htmlPluginData) {
                     markIndex = key;
                 let result = html.match(reg);
                 if(!!result){
+
                     let start = parseInt(result.index),
                         end = start + parseInt(result[0].length);
 
-                    let script = html.slice(start,end),
-                        beforeReplaceHtml = html.replace(script,'');
+                    //如果resultHtml不等于空,就等于之前已经替换过,则不再使用html而是继续更改resultHtml
+                    if(resultHtml != ''){
+                        let static = resultHtml.slice(start,end),
+                            beforeReplaceHtml = resultHtml.replace(static,'');
 
-                    resultHtml = beforeReplaceHtml.replace(markIndex,script);
+                        resultHtml = beforeReplaceHtml.replace(markIndex,static);
+                    }else{
+                        let static = html.slice(start,end),
+                            beforeReplaceHtml = html.replace(static,'');
+
+                        resultHtml = beforeReplaceHtml.replace(markIndex,static);
+                    }
 
                 }
             }
 
         }
     }
-    htmlPluginData.html = resultHtml;
+    htmlPluginData.html = resultHtml == '' ? html : resultHtml;
     callback(null,htmlPluginData);
 }
 

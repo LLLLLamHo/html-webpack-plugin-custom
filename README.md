@@ -1,5 +1,6 @@
 HTML Webpack Plugin Custom
 ===================
+[![npm](https://img.shields.io/npm/v/guido.svg)](https://www.npmjs.com/package/html-webpack-plugin-custom)
 
 这是一个基于[html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin)扩展的[webpack](http://webpack.github.io/)插件,为了在webpack打包输出带有静态资源的html的时候实现自定义静态资源的位置。
 在原来的html-webpack-plugin是没有办法很好的自定义一个静态资源的位置自定义的,所以通过在html里面编写占位符,通过特定的配置,实现静态资源利用占位符定位位置,从而实现位置的替换。
