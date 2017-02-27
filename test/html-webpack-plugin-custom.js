@@ -71,8 +71,8 @@ function initOpt(_this,callback,htmlPluginData) {
 //初始化对应正则表达式
 function initRegExp(_this,opt){
     let newOpt = Object.assign({},opt),
-        marks_JS = newOpt.markNames_JS,
-        marks_CSS = newOpt.markNames_CSS;
+        marks_JS = newOpt.markNames_JS ? newOpt.markNames_JS : [],
+        marks_CSS = newOpt.markNames_CSS ? newOpt.markNames_CSS : [];
 
     newOpt.staticRegExps = [];
     newOpt.markRegExps = [];
@@ -177,6 +177,7 @@ function replaceHtmlContent(_this,callback,htmlPluginData) {
                     let start = parseInt(result.index),
                         end = start + parseInt(result[0].length);
 
+                    //如果resultHtml不等于空,就等于之前已经替换过,则不再使用html而是继续更改resultHtml
                     if(resultHtml != ''){
                         let static = resultHtml.slice(start,end),
                             beforeReplaceHtml = resultHtml.replace(static,'');

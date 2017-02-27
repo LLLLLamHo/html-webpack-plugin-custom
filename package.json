@@ -1,11 +1,35 @@
 {
   "name": "html-webpack-plugin-custom",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "一个基于html-webpack-plugin扩展的插件,实现按照html里面的占位符,和指定的配置,自定义静态资源文件的插入位置。",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "keywords": [
+    "webpack",
+    "plugin",
+    "html",
+    "custom",
+    "html-webpack-plugin-custom"
+  ],
+  "maintainers": [
+    {
+      "name": "LamHo",
+      "email": "linhao.4zhong@163.com"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/LLLLLamHo/html-webpack-plugin-custom/issues"
+  },
+  "respositories": {
+    "url" : "https://github.com/LLLLLamHo/html-webpack-plugin-custom"
+  },
+  "devDependencies": {
+    "webpack": "^1.14.0",
+    "html-webpack-plugin": "^2.26.0"
+  },
+  "directories": {},
+  "author": "LamHo",
   "license": "ISC"
 }

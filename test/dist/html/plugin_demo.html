@@ -1,12 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>demo</title>
-
-<body>
-    <link href="../css/demo.all.css?3cf39b31180af7501364" rel="stylesheet"></head>
-    <script type="text/javascript" src="../js/demo.all.js?3cf39b31180af7501364"></script>
-    <div id="root"></div>
-</body>
-</html>
+Html Webpack Plugin:
+<pre>
+  TypeError: Cannot read property 'length' of undefined
+  
+  - index.js:78 initRegExp
+    [test]/[html-webpack-plugin-custom]/index.js:78:30
+  
+  - index.js:58 initOpt
+    [test]/[html-webpack-plugin-custom]/index.js:58:26
+  
+  - index.js:39 Compilation.<anonymous>
+    [test]/[html-webpack-plugin-custom]/index.js:39:13
+  
+  - Tapable.js:86 Compilation.applyPluginsAsyncWaterfall
+    [test]/[tapable]/lib/Tapable.js:86:13
+  
+  - util.js:16 Compilation.tryCatcher
+    [test]/[bluebird]/js/release/util.js:16:23
+  
+  
+  - index.js:642 
+    [test]/[html-webpack-plugin]/index.js:642:12
+  
+  - index.js:166 
+    [test]/[html-webpack-plugin]/index.js:166:16
+  
+  - util.js:16 tryCatcher
+    [test]/[bluebird]/js/release/util.js:16:23
+  
+  - promise.js:510 Promise._settlePromiseFromHandler
+    [test]/[bluebird]/js/release/promise.js:510:31
+  
+  - promise.js:567 Promise._settlePromise
+    [test]/[bluebird]/js/release/promise.js:567:18
+  
+  - promise.js:612 Promise._settlePromise0
+    [test]/[bluebird]/js/release/promise.js:612:10
+  
+  - promise.js:691 Promise._settlePromises
+    [test]/[bluebird]/js/release/promise.js:691:18
+  
+  - async.js:133 Async._drainQueue
+    [test]/[bluebird]/js/release/async.js:133:16
+  
+  - async.js:143 Async._drainQueues
+    [test]/[bluebird]/js/release/async.js:143:10
+  
+  - async.js:17 Immediate.Async.drainQueues
+    [test]/[bluebird]/js/release/async.js:17:14
+  
+</pre>

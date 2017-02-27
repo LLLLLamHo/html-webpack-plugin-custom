@@ -3,9 +3,10 @@
  */
 "use strict";
 var webpack = require('webpack');
+var HtmlWebpackPluginCustom = require('html-webpack-plugin-custom');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var HtmlWebpackPluginCustom = require('./html-webpack-plugin-custom.js');
+// var HtmlWebpackPluginCustom = require('./html-webpack-plugin-custom.js');
 
 const list = require('./HtmlWebpackPluginData.js');
 
